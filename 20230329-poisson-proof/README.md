@@ -1,36 +1,8 @@
-\documentclass{article}
-\usepackage{graphicx} % Required for inserting images
-\linespread{1.15}
-
-% Language setting
-% Replace `english' with e.g. `spanish' to change the document language
-\usepackage[english]{babel}
-
-% Set page size and margins
-% Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-
-% Useful packages
 \usepackage{mathtools}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage[shortlabels]{enumitem}
-\usepackage{graphicx}
-\usepackage{parskip}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
-\title{A loose proof of the Poisson probability formula}
-\author{jh2946}
-\date{March 2024}
-
-\begin{document}
-
-\maketitle
-
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0pt}
-
-\section*{Introduction}
+## Introduction
 
 This paper will provide strong reasoning (but not a formal proof) for the Poisson probability formula:
 $$P(X = n) = \frac{1}{n!}\lambda^n e^{-\lambda}$$
@@ -44,7 +16,7 @@ Define $y_n(t) = P(X(t) = n)$. Our hypothesis is hence
 y_n(t) = \frac{1}{n!}t^n e^{-t}
 \end{equation}
 
-\section*{Base case}
+## Base case
 
 Firstly let's express our system in terms of "pixel time". We define a constant duration $\Delta t$, and section all of time into disjoint time "pixels", each $\Delta t$ seconds long. In each pixel, an event can only either happen 0 or 1 times. We do not care about the exact time the event occurs, we only look at which pixel the event occurs in. Under these conditions, it's impossible to define a Poisson distribution, since in a real Poisson distribution you could always have 5 raindrops falling in the same millisecond -- possible, but quite unlikely. But we can still define the behaviour of the raindrops such that the expected number of raindrops is 1 per second (strictly speaking for our argument, each second would have to have an integer number of pixels, but in reality this isn't necessary). If we set the probability of a raindrop falling in each pixel proportional to the length of the pixel, then shrink the pixels arbitrarily small, we get a system that's closer and closer to how a Poisson distribution behaves in reality.
 
@@ -83,7 +55,7 @@ y_0(t) &= \frac{1}{0!}t^0 e^{-t} \\
 
 hence the hypothesis matches our result for $n = 0$.
 
-\section*{Inductive case}
+## Inductive case
 
 For cases where we see 1 or more total raindrops after $t + \Delta t$ seconds, there are two possibilities: one where $X(t + \Delta t) = X(t)$ (same as our 0 case) and one where $X(t + \Delta t) = X(t) + 1$ (since it might be possible a raindrop caused our count to increase to $X(t + \Delta t)$). Then our probability equation has two terms on the RHS for $n \ge 1$:
 $$P(X(t + \Delta t) = n) = \big[P(X(t) = n) \cdot P(\Delta X = 0)\big] + \big[P(X(t) = n-1) \cdot P(\Delta X = 1)\big]$$
@@ -128,4 +100,3 @@ The initial condition of (1) also matches our understanding, hence given that (1
 $$y_n = \frac{1}{n!}t^n e^{-t}$$
 
 $\blacksquare$.
-\end{document}
